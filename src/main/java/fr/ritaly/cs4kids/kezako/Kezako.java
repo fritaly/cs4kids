@@ -20,6 +20,8 @@ import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.CustomButton;
+import fr.ritaly.cs4kids.audio.AudioClip;
+import fr.ritaly.cs4kids.audio.SoundSystem;
 
 public class Kezako extends JFrame implements ActionListener {
 
@@ -121,6 +123,8 @@ public class Kezako extends JFrame implements ActionListener {
 
 			if (question.getProposals().get(0).equals(button.getText())) {
 				// Bonne réponse
+				SoundSystem.getInstance().play(AudioClip.SUCCESS);
+				
 				score++;
 
 				scoreLabel.setText(Integer.toString(score) + "/"
@@ -135,6 +139,8 @@ public class Kezako extends JFrame implements ActionListener {
 				rebuildUI();
 			} else {
 				// Mauvaise réponse. On désactive le bouton
+				SoundSystem.getInstance().play(AudioClip.ERROR);
+				
 				button.setEnabled(false);
 
 				score--;

@@ -27,6 +27,8 @@ import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.CustomButton;
 import fr.ritaly.cs4kids.Images64x64;
+import fr.ritaly.cs4kids.audio.AudioClip;
+import fr.ritaly.cs4kids.audio.SoundSystem;
 
 public class Anagramme2 extends JFrame implements ActionListener {
 
@@ -279,6 +281,8 @@ public class Anagramme2 extends JFrame implements ActionListener {
 			}
 
 			if (builder.toString().equals(word.name())) {
+				SoundSystem.getInstance().play(AudioClip.SUCCESS);
+				
 				// Réponse correcte
 				JOptionPane optionPane = new JOptionPane("Réponse correcte !",
 						JOptionPane.PLAIN_MESSAGE,
@@ -300,6 +304,8 @@ public class Anagramme2 extends JFrame implements ActionListener {
 				dialog.setVisible(true);
 			} else {
 				// Réponse fausse
+				SoundSystem.getInstance().play(AudioClip.ERROR);
+				
 				JOptionPane optionPane = new JOptionPane("Mauvaise réponse !",
 						JOptionPane.ERROR_MESSAGE,
 						JOptionPane.OK_CANCEL_OPTION, Images64x64.NEGATIVE);

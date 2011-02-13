@@ -28,6 +28,8 @@ import org.apache.commons.lang.StringUtils;
 
 import fr.ritaly.cs4kids.CustomButton;
 import fr.ritaly.cs4kids.Images64x64;
+import fr.ritaly.cs4kids.audio.AudioClip;
+import fr.ritaly.cs4kids.audio.SoundSystem;
 
 public class Sudoku extends JFrame implements ActionListener {
 
@@ -198,6 +200,8 @@ public class Sudoku extends JFrame implements ActionListener {
 		}
 
 		if (correct) {
+			SoundSystem.getInstance().play(AudioClip.SUCCESS);
+			
 			JOptionPane optionPane = new JOptionPane("Réponse correcte !",
 					JOptionPane.INFORMATION_MESSAGE,
 					JOptionPane.OK_CANCEL_OPTION, Images64x64.POSITIVE);
@@ -217,6 +221,8 @@ public class Sudoku extends JFrame implements ActionListener {
 			// Afficher le dialogue
 			dialog.setVisible(true);
 		} else {
+			SoundSystem.getInstance().play(AudioClip.ERROR);
+			
 			JOptionPane optionPane = new JOptionPane("Mauvaise réponse !",
 					JOptionPane.INFORMATION_MESSAGE,
 					JOptionPane.OK_CANCEL_OPTION, Images64x64.NEGATIVE);

@@ -8,14 +8,20 @@ import java.awt.AlphaComposite;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.sound.sampled.AudioSystem;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
 import org.pushingpixels.trident.Timeline;
 
-public final class CustomButton extends JButton {
+import fr.ritaly.cs4kids.audio.AudioClip;
+import fr.ritaly.cs4kids.audio.SoundSystem;
+
+public final class CustomButton extends JButton implements ActionListener {
 
 	private static final long serialVersionUID = -3240555115238126604L;
 
@@ -31,6 +37,8 @@ public final class CustomButton extends JButton {
 
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setOpaque(false);
+		
+		addActionListener(this);
 	}
 
 	public CustomButton() {
@@ -41,6 +49,8 @@ public final class CustomButton extends JButton {
 
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setOpaque(false);
+		
+		addActionListener(this);
 	}
 
 	public CustomButton(Action a) {
@@ -51,6 +61,8 @@ public final class CustomButton extends JButton {
 
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setOpaque(false);
+		
+		addActionListener(this);
 	}
 
 	public CustomButton(Icon icon) {
@@ -61,6 +73,8 @@ public final class CustomButton extends JButton {
 
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setOpaque(false);
+		
+		addActionListener(this);
 	}
 
 	public CustomButton(String text, Icon icon) {
@@ -71,6 +85,19 @@ public final class CustomButton extends JButton {
 
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setOpaque(false);
+		
+		addActionListener(this);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this) {
+			// Bouton cliqué, jouer un son
+			if (!isTransparent()) {
+				// Ne pas jouer de son si bouton invisible
+				SoundSystem.getInstance().play(AudioClip.CLICK);
+			}
+		}
 	}
 
 	@Override

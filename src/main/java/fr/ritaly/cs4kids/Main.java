@@ -7,13 +7,16 @@ package fr.ritaly.cs4kids;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
-import javax.swing.JButton;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.anagramme.Anagramme2;
+import fr.ritaly.cs4kids.audio.SoundSystem;
 import fr.ritaly.cs4kids.kezako.Kezako;
 import fr.ritaly.cs4kids.sudoku.Sudoku;
 
@@ -21,11 +24,11 @@ public class Main extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -6439933497070619285L;
 
-	private JButton anagrammeButton;
+	private CustomButton anagrammeButton;
 
-	private JButton sudokuButton;
+	private CustomButton sudokuButton;
 
-	private JButton kezakoButton;
+	private CustomButton kezakoButton;
 	
 	private JFrame anagrammeFrame;
 	
@@ -54,23 +57,34 @@ public class Main extends JFrame implements ActionListener {
 	private void buildUI() {
 		final Font font = new Font("Arial", Font.BOLD, 40);
 
-		anagrammeButton = new JButton("Anagramme");
+		anagrammeButton = new CustomButton("Anagramme");
 		anagrammeButton.addActionListener(this);
 		anagrammeButton.setFont(font);
 
 		getContentPane().add(anagrammeButton, "wrap");
 
-		sudokuButton = new JButton("Sudoku");
+		sudokuButton = new CustomButton("Sudoku");
 		sudokuButton.addActionListener(this);
 		sudokuButton.setFont(font);
 
 		getContentPane().add(sudokuButton, "wrap");
 
-		kezakoButton = new JButton("Kezako");
+		kezakoButton = new CustomButton("Kezako");
 		kezakoButton.addActionListener(this);
 		kezakoButton.setFont(font);
 
 		getContentPane().add(kezakoButton, "wrap");
+		
+		try {
+			// FIXME Si pas de son, ne pas lever d'erreur ? 
+			SoundSystem.getInstance().init();
+		} catch (IOException e) {
+			throw new RuntimeException("Error when initializing sound", e);
+		} catch (UnsupportedAudioFileException e) {
+			throw new RuntimeException("Error when initializing sound", e);
+		} catch (LineUnavailableException e) {
+			throw new RuntimeException("Error when initializing sound", e);
+		}
 	}
 
 	public static void main(String[] args) {
