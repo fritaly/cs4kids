@@ -20,7 +20,6 @@ import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.CustomButton;
-import fr.ritaly.cs4kids.Utils;
 
 public class Kezako extends JFrame implements ActionListener {
 
@@ -110,16 +109,6 @@ public class Kezako extends JFrame implements ActionListener {
 
 			getContentPane().add(button, "spanx 3, wrap");
 		}
-	}
-
-	public static void main(String[] args) {
-		Utils.setLookAndFeel();
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new Kezako();
-			}
-		});
 	}
 
 	public void actionPerformed(ActionEvent e) {

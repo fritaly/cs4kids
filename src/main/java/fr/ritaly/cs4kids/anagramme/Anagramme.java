@@ -27,7 +27,6 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.commons.lang.StringUtils;
 
 import fr.ritaly.cs4kids.CustomButton;
-import fr.ritaly.cs4kids.Utils;
 
 public class Anagramme extends JFrame implements ActionListener {
 
@@ -189,16 +188,6 @@ public class Anagramme extends JFrame implements ActionListener {
 		list.setOpaque(false);
 
 		getContentPane().add(list, "spanx " + Word.getLongestWordLength() + 1);
-	}
-
-	public static void main(String[] args) {
-		Utils.setLookAndFeel();
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new Anagramme();
-			}
-		});
 	}
 
 	private void refreshValidateButton() {

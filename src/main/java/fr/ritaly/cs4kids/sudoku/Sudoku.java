@@ -28,7 +28,6 @@ import org.apache.commons.lang.StringUtils;
 
 import fr.ritaly.cs4kids.CustomButton;
 import fr.ritaly.cs4kids.Images64x64;
-import fr.ritaly.cs4kids.Utils;
 
 public class Sudoku extends JFrame implements ActionListener {
 
@@ -129,16 +128,6 @@ public class Sudoku extends JFrame implements ActionListener {
 		clearButton.setEnabled(false);
 
 		getContentPane().add(clearButton, "wrap, sg");
-	}
-
-	public static void main(String[] args) {
-		Utils.setLookAndFeel();
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new Sudoku();
-			}
-		});
 	}
 
 	private void refreshButton() {

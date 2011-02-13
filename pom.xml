@@ -21,7 +21,7 @@
 			<version>3.7</version>
 			<classifier>swing</classifier>
 		</dependency>
-		<!--
+		<!-- Dependencies for batik
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis-ext</artifactId>
@@ -66,7 +66,7 @@
 				<version>2.2</version>
 				<executions>
 					<execution>
-						<id>anagramme</id>
+						<id>main</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
@@ -74,50 +74,12 @@
 						<configuration>
 							<archive>
 								<manifest>
-									<mainClass>fr.ritaly.cs4kids.anagramme.Anagramme2</mainClass>
+									<mainClass>fr.ritaly.cs4kids.Main</mainClass>
 								</manifest>
 							</archive>
 							<descriptors>
 								<descriptor>
-									src/main/assembly/assembly-anagramme.xml
-								</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-					<execution>
-						<id>sudoku</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<mainClass>fr.ritaly.cs4kids.sudoku.Sudoku</mainClass>
-								</manifest>
-							</archive>
-							<descriptors>
-								<descriptor>
-									src/main/assembly/assembly-sudoku.xml
-								</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-					<execution>
-						<id>kezako</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<mainClass>fr.ritaly.cs4kids.kezako.Kezako</mainClass>
-								</manifest>
-							</archive>
-							<descriptors>
-								<descriptor>
-									src/main/assembly/assembly-kezako.xml
+									src/main/assembly/assembly.xml
 								</descriptor>
 							</descriptors>
 						</configuration>
