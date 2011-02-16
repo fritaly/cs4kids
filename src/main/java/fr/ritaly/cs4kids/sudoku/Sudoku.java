@@ -65,7 +65,7 @@ public class Sudoku extends JFrame implements ActionListener {
 				"",
 				"[fill, grow, sg]1[fill, grow, sg]10[fill, grow, sg]1[fill, grow, sg]",
 				"[fill, grow, sg]1[fill, grow, sg]10[fill, grow, sg]1[fill, grow, sg]10[]"));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setSize(1024, 768);

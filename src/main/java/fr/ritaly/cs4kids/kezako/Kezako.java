@@ -48,7 +48,7 @@ public class Kezako extends JFrame implements ActionListener {
 
 		// Général, Colonnes, Lignes
 		setLayout(new MigLayout("", "[fill, grow][][]", "[][][][]"));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setSize(800, 600);
