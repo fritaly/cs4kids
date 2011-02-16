@@ -14,7 +14,7 @@ import org.apache.commons.lang.math.RandomUtils;
 
 import fr.ritaly.cs4kids.Images256x256;
 
-public enum Question {
+enum Question {
 	LOCK("Qu'est-ce-que c'est ?", Images256x256.PADLOCK, "Un cadenas", "Un cheval", "Un cerf-volant"),
 	BALLONS("Qu'est-ce-que c'est ?", Images256x256.BALLOONS, "Des ballons", "Des bateaux", "Une voiture"),
 	BASEBALL_BALL("Qu'est-ce-que c'est ?", Images256x256.BASEBALL_BALL, "Une balle de base-ball", "Un ballon de football", "Une balle de tennis"),

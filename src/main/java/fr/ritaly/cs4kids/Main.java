@@ -18,6 +18,7 @@ import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.anagramme.Anagramme;
 import fr.ritaly.cs4kids.audio.SoundSystem;
 import fr.ritaly.cs4kids.kezako.Kezako;
+import fr.ritaly.cs4kids.missingletter.MissingLetter;
 import fr.ritaly.cs4kids.sudoku.Sudoku;
 
 public class Main extends JFrame implements ActionListener {
@@ -30,11 +31,15 @@ public class Main extends JFrame implements ActionListener {
 
 	private CustomButton kezakoButton;
 	
+	private CustomButton missingLetterButton;
+	
 	private JFrame anagrammeFrame;
 	
 	private JFrame sudokuFrame;
 	
 	private JFrame kezakoFrame;
+	
+	private JFrame missingLetterFrame;
 
 	public Main() {
 		super("CS4Kids - v1.0");
@@ -75,6 +80,12 @@ public class Main extends JFrame implements ActionListener {
 
 		getContentPane().add(kezakoButton, "wrap");
 		
+		missingLetterButton = new CustomButton("La lettre manquante");
+		missingLetterButton.addActionListener(this);
+		missingLetterButton.setFont(font);
+
+		getContentPane().add(missingLetterButton, "wrap");
+		
 		try {
 			// FIXME Si pas de son, ne pas lever d'erreur ? 
 			SoundSystem.getInstance().init();
@@ -114,6 +125,8 @@ public class Main extends JFrame implements ActionListener {
 			sudokuFrame = new Sudoku();
 		} else if (e.getSource() == kezakoButton) {
 			kezakoFrame = new Kezako();
+		} else if (e.getSource() == missingLetterButton) {
+			missingLetterFrame = new MissingLetter();
 		}
 	}
 }

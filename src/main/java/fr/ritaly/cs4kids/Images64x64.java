@@ -26,6 +26,10 @@ public class Images64x64 {
 
 	public static final ImageIcon NEGATIVE = new ImageIcon(Images64x64.class
 			.getClassLoader().getResource("images/sad_64x64.png"));
+	
+	public static final ImageIcon LETTER_BLANK = new ImageIcon(Images64x64.class
+			.getClassLoader().getResource(
+					"images/alphabet/scrabble/Blank_64x64.png"));
 
 	public static final ImageIcon LETTER_A = new ImageIcon(Images64x64.class
 			.getClassLoader().getResource(
@@ -160,6 +164,7 @@ public class Images64x64 {
 		LETTER_PER_ICON.put(LETTER_X, 'X');
 		LETTER_PER_ICON.put(LETTER_Y, 'Y');
 		LETTER_PER_ICON.put(LETTER_Z, 'Z');
+		LETTER_PER_ICON.put(LETTER_BLANK, ' ');
 	}
 	
 	public static char getLetter(Icon icon) {
@@ -220,6 +225,8 @@ public class Images64x64 {
 			return LETTER_Y;
 		case 'Z':
 			return LETTER_Z;
+		case ' ':
+			return LETTER_BLANK;
 		default:
 			return null;
 		}

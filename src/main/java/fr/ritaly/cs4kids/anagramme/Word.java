@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.apache.commons.lang.math.RandomUtils;
 
-public enum Word {
+enum Word {
 	BATEAU,
 	VOITURE,
 	CHAPEAU,
