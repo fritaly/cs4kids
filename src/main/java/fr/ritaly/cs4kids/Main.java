@@ -85,6 +85,16 @@ public class Main extends JFrame implements ActionListener {
 		} catch (LineUnavailableException e) {
 			throw new RuntimeException("Error when initializing sound", e);
 		}
+		
+		// Charger les images dans un thread de fond
+		new Thread() {
+			public void run() {
+				try {
+					Class.forName(Images256x256.class.getName());
+				} catch (ClassNotFoundException e) {
+				}
+			};
+		}.start();
 	}
 
 	public static void main(String[] args) {
