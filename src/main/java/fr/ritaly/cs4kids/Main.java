@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
-import fr.ritaly.cs4kids.anagramme.Anagramme2;
+import fr.ritaly.cs4kids.anagramme.Anagramme;
 import fr.ritaly.cs4kids.audio.SoundSystem;
 import fr.ritaly.cs4kids.kezako.Kezako;
 import fr.ritaly.cs4kids.sudoku.Sudoku;
@@ -99,7 +99,7 @@ public class Main extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == anagrammeButton) {
-			anagrammeFrame = new Anagramme2();
+			anagrammeFrame = new Anagramme();
 		} else if (e.getSource() == sudokuButton) {
 			sudokuFrame = new Sudoku();
 		} else if (e.getSource() == kezakoButton) {

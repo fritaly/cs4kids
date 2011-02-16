@@ -30,7 +30,7 @@ import fr.ritaly.cs4kids.Images64x64;
 import fr.ritaly.cs4kids.audio.AudioClip;
 import fr.ritaly.cs4kids.audio.SoundSystem;
 
-public class Anagramme2 extends JFrame implements ActionListener {
+public class Anagramme extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -6439933497070619285L;
 
@@ -54,7 +54,7 @@ public class Anagramme2 extends JFrame implements ActionListener {
 
 	private JList list;
 
-	public Anagramme2() {
+	public Anagramme() {
 		super("CS4Kids - Anagramme - v1.0");
 
 		// Général, Colonnes, Lignes
@@ -326,13 +326,13 @@ public class Anagramme2 extends JFrame implements ActionListener {
 			public void run() {
 				// Supprimer les listeners
 				for (CustomButton letterButton : letterButtons) {
-					letterButton.removeActionListener(Anagramme2.this);
+					letterButton.removeActionListener(Anagramme.this);
 				}
 				for (CustomButton topButton : topButtons) {
-					topButton.removeActionListener(Anagramme2.this);
+					topButton.removeActionListener(Anagramme.this);
 				}
-				nextButton.removeActionListener(Anagramme2.this);
-				validateButton.removeActionListener(Anagramme2.this);
+				nextButton.removeActionListener(Anagramme.this);
+				validateButton.removeActionListener(Anagramme.this);
 
 				letterButtons.clear();
 				topButtons.clear();
