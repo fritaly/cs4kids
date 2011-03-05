@@ -160,7 +160,10 @@ public class Sudoku extends JFrame implements ActionListener {
 				button.setForeground(Color.BLACK);
 
 				if (button.getText().equals(" ")) {
-					continue;
+					// La solution ne peut être bonne s'il manque des chiffres
+					// dans la grille !
+					correct = false;
+					break;
 				}
 
 				if (digits.containsKey(button.getText())) {
@@ -231,6 +234,9 @@ public class Sudoku extends JFrame implements ActionListener {
 					"Est-ce correct ?");
 			dialog.setModal(true);
 			dialog.setLocationRelativeTo(this);
+			
+			// Désactiver le bouton de validation
+			validateButton.setEnabled(false);
 
 			// Afficher le dialogue
 			dialog.setVisible(true);
