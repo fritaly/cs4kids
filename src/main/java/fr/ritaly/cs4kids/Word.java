@@ -4,14 +4,9 @@
 
 package fr.ritaly.cs4kids;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import javax.swing.ImageIcon;
 
 import org.apache.commons.lang.math.RandomUtils;
-
 
 public enum Word {
 	LOCK("Cadenas", Images256x256.PADLOCK),
@@ -21,7 +16,7 @@ public enum Word {
 	CALENDAR("Calendrier", Images256x256.CALENDAR),
 	CART("Caddy", Images256x256.CART),
 	CASE("Valise", Images256x256.CASE),
-	COMPASS("Compas", Images256x256.COMPASS),
+	COMPASS("Boussole", Images256x256.COMPASS),
 	MAIL("Enveloppe", Images256x256.EMAIL2),
 	CHRISMAS_TREE("Sapin", Images256x256.FORREST),
 	GIFT("Cadeau", Images256x256.GIFT),
@@ -44,6 +39,38 @@ public enum Word {
 	TREASURE_CHEST("Coffre", Images256x256.TREASURE_CHEST),
 	TROPHY("Coupe", Images256x256.TROPHY),
 	WOMAN_SHOES("Chaussures", Images256x256.WOMAN_SHOES),
+	
+	// Seconde série de mots
+	DUCK("Canard", Images256x256.DUCK),
+	AIRPLANE("Avion", Images256x256.AIR_PLANE),
+	HEADPHONE("Ecouteurs", Images256x256.HEAD_PHONE),
+	LAPTOP("Ordinateur", Images256x256.MAC_BOOK),
+	ROBOT("Robot", Images256x256.ROBOT),
+	BALLOONING("Montgolfiere", Images256x256.BALLOON),
+	BOX("Paquet", Images256x256.BOX),
+	BULLDOZER("Bulldozer", Images256x256.BULLDOZER),
+	FLAG("Drapeau", Images256x256.FLAG),
+	CLOCK2("Reveil", Images256x256.CLOCK2),
+	BUILDINGS("Immeubles", Images256x256.BUILDINGS),
+	CRUISE_BIKE("Moto", Images256x256.CRUISE_BIKE),
+	BOAT("Bateau", Images256x256.BOAT),
+	LOCOMOTIVE("Locomotive", Images256x256.LOCOMOTIVE),
+	GHOST("Fantome", Images256x256.GHOST),
+	APPLE("Pomme", Images256x256.APPLE),
+	GUITAR("Guitare", Images256x256.GUITAR),
+	DRILLER("Perceuse", Images256x256.DRILLER),
+	MICROSCOPE("Microscope", Images256x256.MICROSCOPE),
+	MONKEY("Singe", Images256x256.MONKEY),
+	MOUSE("Souris", Images256x256.MOUSE),
+	PIANO("Piano", Images256x256.PIANO),
+	PAGE("Feuille", Images256x256.PAGE),
+	PANDA("Panda", Images256x256.PANDA),
+	PRINTER("Imprimante", Images256x256.PRINTER),
+	RABBIT("Lapin", Images256x256.RABBIT),
+	ROLLER_SKATES("Rollers", Images256x256.ROLLER_SKATES),
+	CANDLE("Chandelle", Images256x256.CANDLE),
+	UMBRELLA("Parapluie", Images256x256.UMBRELLA),
+	WHEEL_BARROW("Brouette", Images256x256.WHEEL_BARROW),
 	;
 	
 	private final ImageIcon image;
