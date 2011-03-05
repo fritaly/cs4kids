@@ -5,6 +5,8 @@
 package fr.ritaly.cs4kids;
 
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -19,7 +21,9 @@ import fr.ritaly.cs4kids.anagramme.Anagramme;
 import fr.ritaly.cs4kids.audio.SoundSystem;
 import fr.ritaly.cs4kids.kezako.Kezako;
 import fr.ritaly.cs4kids.missingletter.MissingLetter;
+import fr.ritaly.cs4kids.spelltheword.SpellTheWord;
 import fr.ritaly.cs4kids.sudoku.Sudoku;
+import fr.ritaly.cs4kids.triolo.Triolo;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -30,16 +34,24 @@ public class Main extends JFrame implements ActionListener {
 	private CustomButton sudokuButton;
 
 	private CustomButton kezakoButton;
-	
+
 	private CustomButton missingLetterButton;
 	
+	private CustomButton spellTheWordButton;
+
+	private CustomButton trioloButton;
+
 	private JFrame anagrammeFrame;
-	
+
 	private JFrame sudokuFrame;
-	
+
 	private JFrame kezakoFrame;
-	
+
 	private JFrame missingLetterFrame;
+	
+	private JFrame spellTheWordFrame;
+
+	private JFrame trioloFrame;
 
 	public Main() {
 		super("CS4Kids - v1.0");
@@ -56,6 +68,7 @@ public class Main extends JFrame implements ActionListener {
 		pack();
 
 		setLocationRelativeTo(null);
+
 		setVisible(true);
 	}
 
@@ -79,15 +92,27 @@ public class Main extends JFrame implements ActionListener {
 		kezakoButton.setFont(font);
 
 		getContentPane().add(kezakoButton, "wrap");
-		
+
 		missingLetterButton = new CustomButton("La lettre manquante");
 		missingLetterButton.addActionListener(this);
 		missingLetterButton.setFont(font);
 
 		getContentPane().add(missingLetterButton, "wrap");
 		
+		spellTheWordButton = new CustomButton("Ecris le mot");
+		spellTheWordButton.addActionListener(this);
+		spellTheWordButton.setFont(font);
+
+		getContentPane().add(spellTheWordButton, "wrap");
+
+		trioloButton = new CustomButton("Triolo");
+		trioloButton.addActionListener(this);
+		trioloButton.setFont(font);
+
+		// getContentPane().add(trioloButton, "wrap");
+
 		try {
-			// FIXME Si pas de son, ne pas lever d'erreur ? 
+			// FIXME Si pas de son, ne pas lever d'erreur ?
 			SoundSystem.getInstance().init();
 		} catch (IOException e) {
 			throw new RuntimeException("Error when initializing sound", e);
@@ -96,7 +121,7 @@ public class Main extends JFrame implements ActionListener {
 		} catch (LineUnavailableException e) {
 			throw new RuntimeException("Error when initializing sound", e);
 		}
-		
+
 		// Charger les images dans un thread de fond
 		new Thread() {
 			public void run() {
@@ -127,6 +152,10 @@ public class Main extends JFrame implements ActionListener {
 			kezakoFrame = new Kezako();
 		} else if (e.getSource() == missingLetterButton) {
 			missingLetterFrame = new MissingLetter();
+		} else if (e.getSource() == spellTheWordButton) {
+			spellTheWordFrame = new SpellTheWord();
+		} else if (e.getSource() == trioloButton) {
+			trioloFrame = new Triolo();
 		}
 	}
 }

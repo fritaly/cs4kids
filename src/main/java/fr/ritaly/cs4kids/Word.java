@@ -2,7 +2,7 @@
  * © 1996-2009 HR Access Solutions. All rights reserved
  * ******************************************************/
 
-package fr.ritaly.cs4kids.missingletter;
+package fr.ritaly.cs4kids;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,9 +12,8 @@ import javax.swing.ImageIcon;
 
 import org.apache.commons.lang.math.RandomUtils;
 
-import fr.ritaly.cs4kids.Images256x256;
 
-enum Word {
+public enum Word {
 	LOCK("Cadenas", Images256x256.PADLOCK),
 	BALLONS("Ballon", Images256x256.BALLOONS),
 	BIN("Poubelle", Images256x256.BIN),

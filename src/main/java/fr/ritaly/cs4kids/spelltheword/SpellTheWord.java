@@ -2,7 +2,7 @@
  * © 1996-2009 HR Access Solutions. All rights reserved
  * ******************************************************/
 
-package fr.ritaly.cs4kids.missingletter;
+package fr.ritaly.cs4kids.spelltheword;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,16 +21,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
-
-import org.apache.commons.lang.math.RandomUtils;
-
 import fr.ritaly.cs4kids.CustomButton;
 import fr.ritaly.cs4kids.Images64x64;
 import fr.ritaly.cs4kids.Word;
 import fr.ritaly.cs4kids.audio.AudioClip;
 import fr.ritaly.cs4kids.audio.SoundSystem;
 
-public class MissingLetter extends JFrame implements ActionListener {
+public class SpellTheWord extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -6439933497070619285L;
 	
@@ -48,12 +45,10 @@ public class MissingLetter extends JFrame implements ActionListener {
 
 	private Word word;
 
-	private char letter;
-	
 	private int errors;
 
-	public MissingLetter() {
-		super("CS4Kids - La lettre manquante - v1.0");
+	public SpellTheWord() {
+		super("CS4Kids - Ecris le mot - v1.0");
 
 		words.addAll(Arrays.asList(Word.values()));
 
@@ -89,23 +84,12 @@ public class MissingLetter extends JFrame implements ActionListener {
 		// Réinitialiser le compteur d'erreurs
 		errors = 0;
 
-		// Supprimer l'une des lettres du mot
-		final int index = RandomUtils.nextInt(word.getName().length());
-
-		letter = word.getName().toUpperCase().charAt(index);
-
 		// Afficher le mot avec la lettre manquante
 		for (int i = 0; i < word.getName().length(); i++) {
-			final ImageIcon icon;
-
-			if (i == index) {
-				icon = Images64x64.LETTER_BLANK;
-			} else {
-				icon = Images64x64.getLetterIcon(word.getName().toUpperCase()
-						.charAt(i));
-			}
+			final ImageIcon icon = Images64x64.LETTER_BLANK;
 
 			final CustomButton button = new CustomButton(icon);
+			button.addActionListener(this);
 
 			// Bidouille sous Nimbus pour avoir un composant transparent
 			button.setOpaque(false);
@@ -168,77 +152,135 @@ public class MissingLetter extends JFrame implements ActionListener {
 
 		if (letterButtons.contains(e.getSource())) {
 			final CustomButton button = (CustomButton) e.getSource();
-
-			if (Images64x64.getLetter(button.getIcon()) == letter) {
-				// Bonne réponse
-				SoundSystem.getInstance().play(AudioClip.SUCCESS);
-				
-				// Masquer la lettre
-				button.fadeOut();
+			
+			// Premier emplacement libre ?
+			final int firstBlankLetterIndex = getFirstBlankLetterIndex();
+			
+			if (firstBlankLetterIndex == -1) {
+				// Toutes les lettres ont été renseignées
+				return;
+			}
+			
+			topButtons.get(firstBlankLetterIndex).setIcon(button.getIcon());
+			
+			final int nextBlankLetterIndex = getFirstBlankLetterIndex();
+			
+			if (nextBlankLetterIndex == -1) {
+				// Si toutes les lettres ont été renseignées, on valide la 
+				// réponse
+				final StringBuilder builder = new StringBuilder(16);
 				
 				for (CustomButton customButton : topButtons) {
-					if (Images64x64.getLetter(customButton.getIcon()) == ' ') {
-						customButton.setIcon(Images64x64.getLetterIcon(letter));
-						break;
+					builder.append(Images64x64.getLetter(customButton.getIcon()));
+				}
+				
+				final String answer = builder.toString();
+				
+				if (answer.equalsIgnoreCase(word.getName())) {
+					// Bonne réponse
+					SoundSystem.getInstance().play(AudioClip.SUCCESS);
+					
+					score++;
+					
+					scoreLabel.setText(Integer.toString(score) + "/"
+							+ Integer.toString(maxScore));
+
+					if (score < 0) {
+						scoreLabel.setForeground(Color.RED);
+					} else {
+						scoreLabel.setForeground(new Color(0, 200, 0));
 					}
-				}
-
-				score++;
-
-				scoreLabel.setText(Integer.toString(score) + "/"
-						+ Integer.toString(maxScore));
-
-				if (score < 0) {
-					scoreLabel.setForeground(Color.RED);
-				} else {
-					scoreLabel.setForeground(new Color(0, 200, 0));
-				}
-
-				// Attendre 1 seconde avant de changer l'IU
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
+					
+					// Attendre 1 seconde avant de changer l'IU
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+							}
+							
+							rebuildUI();						
 						}
-						
-						rebuildUI();						
-					}
-				});
-			} else {
-				// Mauvaise réponse. On masque la lettre
-				SoundSystem.getInstance().play(AudioClip.ERROR);
-
-				button.fadeOut();
-
-				score--;
-
-				scoreLabel.setText(Integer.toString(score) + "/"
-						+ Integer.toString(maxScore));
-
-				if (score < 0) {
-					scoreLabel.setForeground(Color.RED);
+					});
 				} else {
-					scoreLabel.setForeground(new Color(0, 200, 0));
-				}
-				
-				errors++;
-				
-				if (errors == 3) {
-					// Si au moins 3 mauvaises réponses, on donne la réponse et
-					// on attend que l'utilisateur clique sur la dernière lettre
-					// affichée
-					for (final CustomButton customButton : letterButtons) {
-						if (Images64x64.getLetter(customButton.getIcon()) != letter) {
-							if (!customButton.isTransparent()) {
-								customButton.fadeOut();
+					// Mauvaise réponse
+					
+					// Attendre 1 seconde avant continuer pour laisser le temps
+					// à la dernière lettre de s'afficher !
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+							}
+							
+							SoundSystem.getInstance().play(AudioClip.ERROR);
+
+							score--;
+
+							scoreLabel.setText(Integer.toString(score) + "/"
+									+ Integer.toString(maxScore));
+
+							if (score < 0) {
+								scoreLabel.setForeground(Color.RED);
+							} else {
+								scoreLabel.setForeground(new Color(0, 200, 0));
+							}
+							
+							errors++;
+							
+							// On retire les lettres qui sont mauvaises
+							for (int i = 0; i < answer.length(); i++) {
+								final char actual = answer.charAt(i);
+								final char expected = word.getName().charAt(i);
+								
+								if (Character.toUpperCase(actual) == Character.toUpperCase(expected)) {
+									// Lettre correcte
+								} else {
+									// Lettre incorrecte
+									topButtons.get(i).setIcon(Images64x64.LETTER_BLANK);
+								}
+							}
+							
+							if (errors == 3) {
+								// Si au moins 3 mauvaises réponses, on donne la réponse 
+								// et on attend que l'utilisateur clique sur la dernière
+								// lettre affichée
+//								for (final CustomButton customButton : letterButtons) {
+//									if (Images64x64.getLetter(customButton.getIcon()) != letter) {
+//										if (!customButton.isTransparent()) {
+//											customButton.fadeOut();
+//										}
+//									}
+//								}
 							}
 						}
-					}
+					});
 				}
 			}
+		} else if (topButtons.contains(e.getSource())) {
+			final CustomButton button = (CustomButton) e.getSource();
+			
+			if (button.getIcon() == Images64x64.LETTER_BLANK) {
+				// Ne rien faire
+				return;
+			}
+			
+			// Effacer la lettre
+			button.setIcon(Images64x64.LETTER_BLANK);
 		}
+	}
+	
+	private int getFirstBlankLetterIndex() {
+		for (CustomButton button : topButtons) {
+			if (button.getIcon() == Images64x64.LETTER_BLANK) {
+				return topButtons.indexOf(button);
+			}
+		}
+		
+		return -1;
 	}
 
 	private void rebuildUI() {
@@ -248,10 +290,14 @@ public class MissingLetter extends JFrame implements ActionListener {
 
 				// Supprimer les listeners
 				for (CustomButton button : letterButtons) {
-					button.removeActionListener(MissingLetter.this);
+					button.removeActionListener(SpellTheWord.this);
+				}
+				for (CustomButton button : topButtons) {
+					button.removeActionListener(SpellTheWord.this);
 				}
 
 				letterButtons.clear();
+				topButtons.clear();
 
 				// Supprimer tous les composants d'un coup
 				getContentPane().removeAll();
