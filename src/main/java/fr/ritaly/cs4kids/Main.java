@@ -129,6 +129,10 @@ public class Main extends JFrame implements ActionListener {
 					Class.forName(Images256x256.class.getName());
 				} catch (ClassNotFoundException e) {
 				}
+				try {
+					Class.forName(Images64x64.class.getName());
+				} catch (ClassNotFoundException e) {
+				}
 			};
 		}.start();
 	}
