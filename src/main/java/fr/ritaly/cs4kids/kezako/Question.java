@@ -72,7 +72,7 @@ enum Question {
 	COTTAGE("Qu'est-ce-que c'est ?", Images256x256.COTTAGE, "Une maison de campagne", "Un appartement", "Une cabane de jardin"),
 	CRUISE_BIKE("Qu'est-ce-que c'est ?", Images256x256.CRUISE_BIKE, "Une moto", "Une auto", "Un chapeau"),
 	DESKTOP("Qu'est-ce-que c'est ?", Images256x256.DESKTOP, "Un ordinateur de bureau", "Une télévision", "Un poster"),
-	BOAT("Qu'est-ce-que c'est ?", Images256x256.BOAT, "Un bateau", "Une cabande", "Un canot"),
+	BOAT("Qu'est-ce-que c'est ?", Images256x256.BOAT, "Un bateau", "Une cabane", "Un canot"),
 	LOCOMOTIVE("Qu'est-ce-que c'est ?", Images256x256.LOCOMOTIVE, "Une locomotive", "Une automobile", "Un wagon"),
 	FLIPS_FLOPS("Qu'est-ce-que c'est ?", Images256x256.FLIP_FLOPS, "Des tongs", "Des chaussons", "Des bottes"),
 	FLIPPERS("Qu'est-ce-que c'est ?", Images256x256.FLIPPERS, "Des palmes pour nager", "Deux pelles", "Des gants"),
