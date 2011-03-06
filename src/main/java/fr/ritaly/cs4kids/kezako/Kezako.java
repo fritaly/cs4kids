@@ -4,7 +4,6 @@
 
 package fr.ritaly.cs4kids.kezako;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +19,7 @@ import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.CustomButton;
+import fr.ritaly.cs4kids.ScorePanel;
 import fr.ritaly.cs4kids.audio.AudioClip;
 import fr.ritaly.cs4kids.audio.SoundSystem;
 
@@ -31,11 +31,7 @@ public class Kezako extends JFrame implements ActionListener {
 
 	private final LinkedList<Question> questions = new LinkedList<Question>();
 
-	private int score = 0;
-
-	private int maxScore = 0;
-
-	private JLabel scoreLabel;
+	private final ScorePanel scorePanel = new ScorePanel();
 
 	private Question question;
 
@@ -77,22 +73,7 @@ public class Kezako extends JFrame implements ActionListener {
 		questionLabel.setFont(font);
 
 		getContentPane().add(questionLabel, "");
-
-		scoreLabel = new JLabel(Integer.toString(score) + "/"
-				+ Integer.toString(maxScore), JLabel.CENTER);
-		scoreLabel.setFont(font);
-
-		if (score < 0) {
-			scoreLabel.setForeground(Color.RED);
-		} else {
-			scoreLabel.setForeground(new Color(0, 200, 0));
-		}
-
-		final JLabel label = new JLabel("Score: ");
-		label.setFont(font);
-
-		getContentPane().add(label, "");
-		getContentPane().add(scoreLabel, "wrap");
+		getContentPane().add(scorePanel, "wrap");
 
 		getContentPane().add(new JLabel(question.getImage()),
 				"spanx 3, gap 10 10 10 10, wrap");
@@ -125,16 +106,7 @@ public class Kezako extends JFrame implements ActionListener {
 				// Bonne réponse
 				SoundSystem.getInstance().play(AudioClip.SUCCESS);
 				
-				score++;
-
-				scoreLabel.setText(Integer.toString(score) + "/"
-						+ Integer.toString(maxScore));
-
-				if (score < 0) {
-					scoreLabel.setForeground(Color.RED);
-				} else {
-					scoreLabel.setForeground(new Color(0, 200, 0));
-				}
+				scorePanel.incCorrectAnswers();
 
 				rebuildUI();
 			} else {
@@ -142,17 +114,8 @@ public class Kezako extends JFrame implements ActionListener {
 				SoundSystem.getInstance().play(AudioClip.ERROR);
 				
 				button.setEnabled(false);
-
-				score--;
-
-				scoreLabel.setText(Integer.toString(score) + "/"
-						+ Integer.toString(maxScore));
-
-				if (score < 0) {
-					scoreLabel.setForeground(Color.RED);
-				} else {
-					scoreLabel.setForeground(new Color(0, 200, 0));
-				}
+				
+				scorePanel.incIncorrectAnswers();
 
 				int disabledCount = 0;
 
@@ -176,8 +139,6 @@ public class Kezako extends JFrame implements ActionListener {
 	private void rebuildUI() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				maxScore++;
-
 				// Supprimer les listeners
 				for (CustomButton button : buttons) {
 					button.removeActionListener(Kezako.this);

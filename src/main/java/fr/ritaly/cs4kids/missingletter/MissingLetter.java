@@ -5,7 +5,6 @@
 package fr.ritaly.cs4kids.missingletter;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ import org.apache.commons.lang.math.RandomUtils;
 
 import fr.ritaly.cs4kids.CustomButton;
 import fr.ritaly.cs4kids.Images64x64;
+import fr.ritaly.cs4kids.ScorePanel;
 import fr.ritaly.cs4kids.Word;
 import fr.ritaly.cs4kids.audio.AudioClip;
 import fr.ritaly.cs4kids.audio.SoundSystem;
@@ -40,11 +40,7 @@ public class MissingLetter extends JFrame implements ActionListener {
 
 	private final LinkedList<Word> words = new LinkedList<Word>();
 
-	private int score = 0;
-
-	private int maxScore = 0;
-
-	private JLabel scoreLabel;
+	private final ScorePanel scorePanel = new ScorePanel();
 
 	private Word word;
 
@@ -76,8 +72,6 @@ public class MissingLetter extends JFrame implements ActionListener {
 	}
 
 	private void buildUI() {
-		final Font font = new Font("Arial", Font.BOLD, 40);
-
 		if (words.isEmpty()) {
 			words.addAll(Arrays.asList(Word.values()));
 
@@ -88,6 +82,8 @@ public class MissingLetter extends JFrame implements ActionListener {
 		
 		// Réinitialiser le compteur d'erreurs
 		errors = 0;
+		
+		getContentPane().add(scorePanel, "spanx, wrap, al right");
 
 		// Supprimer l'une des lettres du mot
 		final int index = RandomUtils.nextInt(word.getName().length());
@@ -120,22 +116,6 @@ public class MissingLetter extends JFrame implements ActionListener {
 				getContentPane().add(button, "");
 			}
 		}
-
-		scoreLabel = new JLabel(Integer.toString(score) + "/"
-				+ Integer.toString(maxScore), JLabel.CENTER);
-		scoreLabel.setFont(font);
-
-		if (score < 0) {
-			scoreLabel.setForeground(Color.RED);
-		} else {
-			scoreLabel.setForeground(new Color(0, 200, 0));
-		}
-
-		// final JLabel label = new JLabel("Score: ");
-		// label.setFont(font);
-		//
-		// getContentPane().add(label, "");
-		// getContentPane().add(scoreLabel, "wrap");
 
 		getContentPane().add(new JLabel(word.getImage()),
 				"spanx 9, gap 10 10 10 10, grow, wrap");
@@ -183,16 +163,7 @@ public class MissingLetter extends JFrame implements ActionListener {
 					}
 				}
 
-				score++;
-
-				scoreLabel.setText(Integer.toString(score) + "/"
-						+ Integer.toString(maxScore));
-
-				if (score < 0) {
-					scoreLabel.setForeground(Color.RED);
-				} else {
-					scoreLabel.setForeground(new Color(0, 200, 0));
-				}
+				scorePanel.incCorrectAnswers();
 
 				// Attendre 1 seconde avant de changer l'IU
 				SwingUtilities.invokeLater(new Runnable() {
@@ -211,18 +182,9 @@ public class MissingLetter extends JFrame implements ActionListener {
 				SoundSystem.getInstance().play(AudioClip.ERROR);
 
 				button.fadeOut();
-
-				score--;
-
-				scoreLabel.setText(Integer.toString(score) + "/"
-						+ Integer.toString(maxScore));
-
-				if (score < 0) {
-					scoreLabel.setForeground(Color.RED);
-				} else {
-					scoreLabel.setForeground(new Color(0, 200, 0));
-				}
 				
+				scorePanel.incIncorrectAnswers();
+
 				errors++;
 				
 				if (errors == 3) {
@@ -244,8 +206,6 @@ public class MissingLetter extends JFrame implements ActionListener {
 	private void rebuildUI() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				maxScore++;
-
 				// Supprimer les listeners
 				for (CustomButton button : letterButtons) {
 					button.removeActionListener(MissingLetter.this);

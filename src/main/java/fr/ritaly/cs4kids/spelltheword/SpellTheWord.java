@@ -5,7 +5,6 @@
 package fr.ritaly.cs4kids.spelltheword;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.CustomButton;
 import fr.ritaly.cs4kids.Images64x64;
+import fr.ritaly.cs4kids.ScorePanel;
 import fr.ritaly.cs4kids.Word;
 import fr.ritaly.cs4kids.audio.AudioClip;
 import fr.ritaly.cs4kids.audio.SoundSystem;
@@ -37,11 +37,7 @@ public class SpellTheWord extends JFrame implements ActionListener {
 
 	private final LinkedList<Word> words = new LinkedList<Word>();
 
-	private int score = 0;
-
-	private int maxScore = 0;
-
-	private JLabel scoreLabel;
+	private final ScorePanel scorePanel = new ScorePanel();
 
 	private Word word;
 
@@ -71,8 +67,6 @@ public class SpellTheWord extends JFrame implements ActionListener {
 	}
 
 	private void buildUI() {
-		final Font font = new Font("Arial", Font.BOLD, 40);
-
 		if (words.isEmpty()) {
 			words.addAll(Arrays.asList(Word.values()));
 
@@ -83,6 +77,8 @@ public class SpellTheWord extends JFrame implements ActionListener {
 		
 		// Réinitialiser le compteur d'erreurs
 		errors = 0;
+		
+		getContentPane().add(scorePanel, "spanx, wrap, al right");
 
 		// Afficher le mot avec la lettre manquante
 		for (int i = 0; i < word.getName().length(); i++) {
@@ -104,22 +100,6 @@ public class SpellTheWord extends JFrame implements ActionListener {
 				getContentPane().add(button, "");
 			}
 		}
-
-		scoreLabel = new JLabel(Integer.toString(score) + "/"
-				+ Integer.toString(maxScore), JLabel.CENTER);
-		scoreLabel.setFont(font);
-
-		if (score < 0) {
-			scoreLabel.setForeground(Color.RED);
-		} else {
-			scoreLabel.setForeground(new Color(0, 200, 0));
-		}
-
-		// final JLabel label = new JLabel("Score: ");
-		// label.setFont(font);
-		//
-		// getContentPane().add(label, "");
-		// getContentPane().add(scoreLabel, "wrap");
 
 		getContentPane().add(new JLabel(word.getImage()),
 				"spanx 9, gap 10 10 10 10, grow, wrap");
@@ -180,16 +160,7 @@ public class SpellTheWord extends JFrame implements ActionListener {
 					// Bonne réponse
 					SoundSystem.getInstance().play(AudioClip.SUCCESS);
 					
-					score++;
-					
-					scoreLabel.setText(Integer.toString(score) + "/"
-							+ Integer.toString(maxScore));
-
-					if (score < 0) {
-						scoreLabel.setForeground(Color.RED);
-					} else {
-						scoreLabel.setForeground(new Color(0, 200, 0));
-					}
+					scorePanel.incCorrectAnswers();
 					
 					// Attendre 1 seconde avant de changer l'IU
 					SwingUtilities.invokeLater(new Runnable() {
@@ -218,16 +189,7 @@ public class SpellTheWord extends JFrame implements ActionListener {
 							
 							SoundSystem.getInstance().play(AudioClip.ERROR);
 
-							score--;
-
-							scoreLabel.setText(Integer.toString(score) + "/"
-									+ Integer.toString(maxScore));
-
-							if (score < 0) {
-								scoreLabel.setForeground(Color.RED);
-							} else {
-								scoreLabel.setForeground(new Color(0, 200, 0));
-							}
+							scorePanel.incIncorrectAnswers();
 							
 							errors++;
 							
@@ -286,7 +248,6 @@ public class SpellTheWord extends JFrame implements ActionListener {
 	private void rebuildUI() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				maxScore++;
 
 				// Supprimer les listeners
 				for (CustomButton button : letterButtons) {
