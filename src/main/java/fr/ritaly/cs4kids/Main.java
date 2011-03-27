@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 import fr.ritaly.cs4kids.anagramme.Anagramme;
 import fr.ritaly.cs4kids.audio.SoundSystem;
+import fr.ritaly.cs4kids.crosswords.CrossWords;
 import fr.ritaly.cs4kids.kezako.Kezako;
 import fr.ritaly.cs4kids.missingletter.MissingLetter;
 import fr.ritaly.cs4kids.spelltheword.SpellTheWord;
@@ -40,6 +41,8 @@ public class Main extends JFrame implements ActionListener {
 	private CustomButton spellTheWordButton;
 
 	private CustomButton trioloButton;
+	
+	private CustomButton crossWordsButton;
 
 	private JFrame anagrammeFrame;
 
@@ -52,6 +55,8 @@ public class Main extends JFrame implements ActionListener {
 	private JFrame spellTheWordFrame;
 
 	private JFrame trioloFrame;
+	
+	private JFrame crossWordsFrame;
 
 	public Main() {
 		super("CS4Kids - v1.0");
@@ -104,6 +109,12 @@ public class Main extends JFrame implements ActionListener {
 		spellTheWordButton.setFont(font);
 
 		getContentPane().add(spellTheWordButton, "wrap");
+		
+		crossWordsButton = new CustomButton("Mots croisés");
+		crossWordsButton.addActionListener(this);
+		crossWordsButton.setFont(font);
+
+		getContentPane().add(crossWordsButton, "wrap");
 
 		trioloButton = new CustomButton("Triolo");
 		trioloButton.addActionListener(this);
@@ -158,6 +169,8 @@ public class Main extends JFrame implements ActionListener {
 			missingLetterFrame = new MissingLetter();
 		} else if (e.getSource() == spellTheWordButton) {
 			spellTheWordFrame = new SpellTheWord();
+		} else if (e.getSource() == crossWordsButton) {
+			crossWordsFrame = new CrossWords();
 		} else if (e.getSource() == trioloButton) {
 			trioloFrame = new Triolo();
 		}
