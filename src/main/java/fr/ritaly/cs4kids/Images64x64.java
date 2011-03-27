@@ -27,6 +27,12 @@ public class Images64x64 {
 	public static final ImageIcon NEGATIVE = new ImageIcon(Images64x64.class
 			.getClassLoader().getResource("images/sad_64x64.png"));
 	
+	public static final ImageIcon DOWN = new ImageIcon(Images64x64.class
+			.getClassLoader().getResource("images/Down_64x64.png"));
+	
+	public static final ImageIcon RIGHT = new ImageIcon(Images64x64.class
+			.getClassLoader().getResource("images/Right_64x64.png"));
+	
 	public static final ImageIcon LETTER_BLANK = new ImageIcon(Images64x64.class
 			.getClassLoader().getResource(
 					"images/alphabet/scrabble/Blank_64x64.png"));
