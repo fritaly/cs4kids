@@ -2,6 +2,7 @@
 .project
 .settings
 target
+bin
 src/main/resources/images/Thumbs.db
 src/main/resources/images/alphabet/Thumbs.db
 src/main/resources/images/alphabet/scrabble/Thumbs.db
