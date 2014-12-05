@@ -1,7 +1,7 @@
 .classpath
 .project
 .settings
-target
+build
 bin
 src/main/resources/images/Thumbs.db
 src/main/resources/images/alphabet/Thumbs.db
