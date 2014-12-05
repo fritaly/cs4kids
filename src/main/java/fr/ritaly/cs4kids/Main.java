@@ -1,8 +1,6 @@
 package fr.ritaly.cs4kids;
 
 import java.awt.Font;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -20,7 +18,6 @@ import fr.ritaly.cs4kids.kezako.Kezako;
 import fr.ritaly.cs4kids.missingletter.MissingLetter;
 import fr.ritaly.cs4kids.spelltheword.SpellTheWord;
 import fr.ritaly.cs4kids.sudoku.Sudoku;
-import fr.ritaly.cs4kids.triolo.Triolo;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -33,11 +30,9 @@ public class Main extends JFrame implements ActionListener {
 	private CustomButton kezakoButton;
 
 	private CustomButton missingLetterButton;
-	
+
 	private CustomButton spellTheWordButton;
 
-	private CustomButton trioloButton;
-	
 	private CustomButton crossWordsButton;
 
 	private JFrame anagrammeFrame;
@@ -47,11 +42,9 @@ public class Main extends JFrame implements ActionListener {
 	private JFrame kezakoFrame;
 
 	private JFrame missingLetterFrame;
-	
+
 	private JFrame spellTheWordFrame;
 
-	private JFrame trioloFrame;
-	
 	private JFrame crossWordsFrame;
 
 	public Main() {
@@ -99,24 +92,18 @@ public class Main extends JFrame implements ActionListener {
 		missingLetterButton.setFont(font);
 
 		getContentPane().add(missingLetterButton, "wrap");
-		
+
 		spellTheWordButton = new CustomButton("Ecris le mot");
 		spellTheWordButton.addActionListener(this);
 		spellTheWordButton.setFont(font);
 
 		getContentPane().add(spellTheWordButton, "wrap");
-		
+
 		crossWordsButton = new CustomButton("Mots croisés");
 		crossWordsButton.addActionListener(this);
 		crossWordsButton.setFont(font);
 
 		getContentPane().add(crossWordsButton, "wrap");
-
-		trioloButton = new CustomButton("Triolo");
-		trioloButton.addActionListener(this);
-		trioloButton.setFont(font);
-
-		// getContentPane().add(trioloButton, "wrap");
 
 		try {
 			// FIXME Si pas de son, ne pas lever d'erreur ?
@@ -167,8 +154,6 @@ public class Main extends JFrame implements ActionListener {
 			spellTheWordFrame = new SpellTheWord();
 		} else if (e.getSource() == crossWordsButton) {
 			crossWordsFrame = new CrossWords();
-		} else if (e.getSource() == trioloButton) {
-			trioloFrame = new Triolo();
 		}
 	}
 }
