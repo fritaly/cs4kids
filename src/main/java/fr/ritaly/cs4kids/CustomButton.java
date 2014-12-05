@@ -1,7 +1,3 @@
-/* *******************************************************
- * © 1996-2009 HR Access Solutions. All rights reserved
- * ******************************************************/
-
 package fr.ritaly.cs4kids;
 
 import java.awt.AlphaComposite;
