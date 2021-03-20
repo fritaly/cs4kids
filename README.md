@@ -1,7 +1,7 @@
 cs4kids
 =======
 
-[![Build Status](https://travis-ci.org/fritaly/cs4kids.svg?branch=master)](https://travis-ci.org/fritaly/cs4kids)
+[![Java CI with Gradle](https://github.com/fritaly/cs4kids/actions/workflows/gradle.yml/badge.svg)](https://github.com/fritaly/cs4kids/actions/workflows/gradle.yml)
 
 Computer Science 4 Kids
 
